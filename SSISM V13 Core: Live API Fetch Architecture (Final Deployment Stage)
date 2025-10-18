@@ -1,0 +1,18 @@
+        # V13 Core: Live API Fetch Architecture (Final Deployment Stage)
+        response = requests.get(
+            SUN_TIMES_API_URL, 
+            params={
+                'date': target_date, 
+                'lat': lat, 
+                'lon': lon, 
+                'key': API_KEY_SIMULATED # <-- REPLACE WITH LIVE KEY
+            }
+        )
+        # Add necessary try/except blocks for robust error handling (Anicca check)
+        # if response.status_code == 200:
+        #     data = response.json()
+        #     sunrise_str = data['sunrise']
+        #     sunset_str = data['sunset']
+        # else:
+        #     # Handle API failure (e.g., raise exception or use a safe fallback)
+        #     raise Exception(f"API Error: {response.status_code}")
