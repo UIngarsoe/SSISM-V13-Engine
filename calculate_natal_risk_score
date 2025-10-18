@@ -1,0 +1,35 @@
+def calculate_natal_risk_score(current_planet: str, natal_planet: str, client_dob_info: dict = None) -> dict:
+    """
+    V13 Adaptive: Calculates Natal Risk Score (Distance only, prepared for V14 expansion).
+    Now accepts optional client_dob_info for future multi-factor scoring (Upekkhā Practice).
+    Returns a detail dictionary instead of just a single float.
+    """
+    if natal_planet == "N/A":
+        return {"Risk_Score": -1.0, "Detail": "Natal data unavailable."}
+
+    # 1. Distance Risk Factor (Preserved from V12)
+    try:
+        current_index = PLANETARY_HOUR_CYCLE.index(current_planet)
+        natal_index = PLANETARY_HOUR_CYCLE.index(natal_planet)
+    except ValueError:
+        return {"Risk_Score": -1.0, "Detail": "Planet name error."}
+        
+    diff = abs(current_index - natal_index)
+    min_distance = min(diff, 7 - diff) 
+    natal_risk_score = 3.0 - min_distance # Max 3.0 (Confluence), Min 0.0
+    
+    # V14 Placeholder: Add an empty trait section for future enrichment
+    additional_factors = {}
+    if client_dob_info:
+        # Placeholder for V14 logic:
+        # e.g., if client_dob_info.get('life_stage') == 'challenging': 
+        #    natal_risk_score += 0.5 
+        additional_factors = client_dob_info
+        
+    return {
+        "Risk_Score": natal_risk_score,
+        "Distance_Score": natal_risk_score,
+        "Current_Planet": current_planet,
+        "Natal_Planet": natal_planet,
+        "V14_Traits_Placeholder": additional_factors # Upekkhā/Mettā Practice
+    }
