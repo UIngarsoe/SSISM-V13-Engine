@@ -1,0 +1,27 @@
+# In V13_SSISM_Predict function:
+
+    # ... (After Current Planetary Hour Determination)
+
+    # Weighted Scoring & Solution Synthesis (Adaptive for future V14 structure)
+    natal_risk_data = calculate_natal_risk_score(current_planet, natal_planet, client_dob_info=None) # No V14 info yet
+    natal_risk_score = natal_risk_data["Risk_Score"]
+    
+    if current_planet == "N/A" or natal_risk_score == -1.0: 
+        solution_category = 'MENTAL_DUKKHA'
+    elif natal_risk_score == 3.0: 
+        solution_category = 'CONFLICT_HOUR'
+    else:
+        # Retain V13 logic, but future V14 logic will use the full risk_data dictionary
+        solution_category = 'NEGATIVE_PLANET' 
+        
+    final_advice_text = DHARMA_SOLUTION_MATRIX[solution_category]
+    
+    final_advice = {
+        # ... (Rest of the dictionary)
+        "Natal_Risk_Score_V13": natal_risk_score,
+        "Full_Risk_Analysis_V14_Ready": natal_risk_data, # New V14 structure integrated
+        "Zero_Cost_Adherence": ZERO_COST_CONSTRAINT,
+        "Solution_S_Dharma": final_advice_text
+    }
+    
+    return final_advice
